@@ -67,7 +67,7 @@ public class UserDAO {
      * @param user the User object to insert
      * @return the generated user ID, or -1 if operation fails
      */
-    public int createUser(User user) {
+    public int createUser(String username, String password, String firstname, String lastname, String email) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -75,15 +75,17 @@ public class UserDAO {
 
         try {
             conn = DBConnection.getConnection();
-            String sql = "INSERT INTO Users (username, password, email, firstName, lastName) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Users (username, password, email, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword()); // In a real app, use password hashing!
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getFirstName());
-            stmt.setString(5, user.getLastName());
+            stmt.setString(1, username);
+            stmt.setString(2, password); // In a real app, use password hashing!
+            stmt.setString(3, email);
+            stmt.setString(4, firstname);
+            stmt.setString(5, lastname);
 
             int affectedRows = stmt.executeUpdate();
+
+            System.out.println("In DB connect");
             if (affectedRows > 0) {
                 rs = stmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -104,6 +106,32 @@ public class UserDAO {
 
         return userId;
     }
+
+
+     public void deleteAccount(int userId) {
+         Connection conn = null;
+         PreparedStatement stmt = null;
+
+         try {
+             conn = DBConnection.getConnection();
+             String sql = "DELETE FROM USERS WHERE id = ?";
+             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             stmt.setInt(1, userId);
+
+             stmt.executeUpdate();
+
+             System.out.println("In DB connect");
+         } catch (SQLException e) {
+             e.printStackTrace();
+         } finally {
+             try {
+                 if (stmt != null) stmt.close();
+                 if (conn != null) DBConnection.closeConnection(conn);
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
 
     /**
      * Gets a user by ID.

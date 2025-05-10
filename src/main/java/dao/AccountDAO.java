@@ -30,7 +30,7 @@ public class AccountDAO {
 
         try {
             conn = DBConnection.getConnection();
-            String sql = "INSERT INTO Accounts (userId, accountName) VALUES (?, ?)";
+            String sql = "INSERT INTO Accounts (user_id, account_name) VALUES (?, ?)";
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, account.getUserId());
             stmt.setString(2, account.getAccountName());
@@ -43,6 +43,46 @@ public class AccountDAO {
                     account.setId(accountId);
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) DBConnection.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return accountId;
+    }
+
+    /**
+     * Gets an accountID by user ID.
+     *
+     * @param userID the account ID
+     * @return Account object if found, null otherwise
+     */
+    public int getAccountID(int userID) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int accountId = -1;
+
+        try {
+            conn = DBConnection.getConnection();
+            String sql = "SELECT id FROM Accounts WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, userID);
+
+
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                accountId = rs.getInt(1);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

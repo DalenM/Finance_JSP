@@ -35,7 +35,7 @@
                                   <textarea class="form-control" name="description" rows="3"></textarea>
                                 </div>
                                 <div class="btn-toolbar justify-content-between">
-                                      <button type="submit" class="btn btn-lg btn-success">Create Transaction</button>
+                                      <button type="submit" class="btn btn-lg btn-success">Submit Transaction</button>
                                 </div>
                              </form>
                         </div>

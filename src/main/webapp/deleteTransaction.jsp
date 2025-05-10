@@ -9,15 +9,15 @@
                 <div class="row">
                     <div class="col-12 col-sm-8 col-md-6 mx-auto">
                         <div class="card border-3 shadow">
-                            <h1 class= "display-6 bg-secondary text-white font-consolas text-center">Create Category</h1>
-                            <form class="form-control" action="category" method="post">
+                            <h1 class= "display-6 bg-secondary text-white font-consolas text-center">Delete Transaction by Id</h1>
+                            <form class="form-control" action="deleteTransaction" method="post">
                                 <div class="mb-3">
-                                  <label for="" class="form-label">Category Name:</label>
-                                  <input  class="form-control" name="category_name">
+                                  <label for="" class="form-label">Transaction id to delete:</label>
+                                  <input class="form-control" name="transaction_id">
                                 </div>
                                 <div class="d-inline-flex d-md-block col-sm-3 mx-auto">
                                       <div class ="mb-2 row">
-                                          <button type="submit" class="btn btn-lg btn-success">Create</button>
+                                          <button type="submit" class="btn btn-lg btn-success">Delete</button>
                                       </div>
                                  </div>
                             </form>

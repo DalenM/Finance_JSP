@@ -32,6 +32,7 @@ CREATE TABLE Transactions (
     user_id SMALLINT UNSIGNED NOT NULL,
     account_id SMALLINT UNSIGNED NOT NULL,
     category_id SMALLINT UNSIGNED NOT NULL,
+    transaction_name VARCHAR(55) NOT NULL UNIQUE,
     amount DECIMAL(10, 2) NOT NULL,
     type ENUM('income', 'expense') NOT NULL,
     description VARCHAR(255),

@@ -13,7 +13,7 @@
                             <svg class="mx-auto" fill="seagreen" xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
                               <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6m5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1z"/>
                             </svg>
-                            <form class="form-sign" action="" method="post">
+                            <form class="form-control" action="createAccount" method="post">
                                 <div class="mb-3">
                                     <label for="username_create" class="form-label">Create Username:</label>
                                     <input type="text" class="form-control my-3 py-2" name="username" placeholder="Username">
@@ -24,22 +24,23 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="password_create" class="form-label">Enter First Name:</label>
-                                    <input type="text" class="form-control my-3 py-2" name="firstname" placeholder="Password">
+                                    <input type="text" class="form-control my-3 py-2" name="firstname" placeholder="First Name">
                                 </div>
                                 <div class="mb-3">
                                     <label for="password_create" class="form-label">Enter Last Name:</label>
-                                    <input type="text" class="form-control my-3 py-2" name="lastname" placeholder="Password">
+                                    <input type="text" class="form-control my-3 py-2" name="lastname" placeholder="Last Name">
                                 </div>
                                 <div class="mb-3">
                                     <label for="password_create" class="form-label">Enter Account Name:</label>
-                                    <input type="text" class="form-control my-3 py-2" name="account_name" placeholder="Password">
+                                    <input type="text" class="form-control my-3 py-2" name="account_name" placeholder="Account Name: Checking, Banking, Paypal">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email_create" class="form-label">Enter Email Address:</label>
+                                    <input type="text" class="form-control my-3 py-2" name="email" placeholder="email">
                                 </div>
                                 <div class="d-inline-flex d-md-block col-sm-3 mx-auto">
                                     <div class ="mb-2 row">
                                         <button type="submit" class="btn btn-lg btn-success">Create Account</button>
-                                    </div>
-                                    <div class ="mb-2 row">
-                                        <button type="button" class="btn btn-lg btn-danger">Back</button>
                                     </div>
                                </div>
                              </form>

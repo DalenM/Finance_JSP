@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.math.BigDecimal"%>
 <%@page import="model.*"%>
 
 <!DOCTYPE html>
@@ -67,21 +66,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./deleteTransaction.jsp">
+              <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 View Reports
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./deleteTransaction.jsp">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Delete Transactions
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./editTransaction.jsp">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Edit Transaction
               </a>
             </li>
           </ul>
@@ -102,45 +89,18 @@
                 </div>
            </div>
            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <%ArrayList<Transaction> transactions = (ArrayList<Transaction>) request.getAttribute("UserTransactions");%>
-                <%for(Transaction t : transactions){%>
-                    <div class="col">
-                            <div class="card shadow-sm">
-                              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
-                              <div class="card-body">
-                                <p class="card-text">
-                                    <table>
-                                        <tr>
-                                            <td><% out.println("==Transaction=="); %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><% out.println("   Id - " + t.getId());%></td>
-                                        </tr>
-                                        <tr>
-                                            <td><% out.println("   Name - " + t.getTransaction());%></td>
-                                        </tr>
-                                        <tr>
-                                            <td><% out.println("   Type - " + t.getType()); %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><%out.println("   Description - " + t.getDescription());%><td>
-                                        </tr>
-                                        <tr>
-                                            <td><%out.println("   Amount - " + t.getAmount());%><td>
-                                        </tr>
-                                    </table>
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                  </div>
-                                  <small class="text-muted"><p><%out.println(t.getDate());%></p</small>
-                                </div>
-                              </div>
-                            </div>
-                    </div>
-                <%}%>
+                <table>
+                    <%ArrayList<Transaction> transactions = (ArrayList<Transaction>) request.getAttribute("UserTransactions");%>
+                    <%for(Transaction t : transactions){%>
+                        <tr>
+                            <td><%out.println(t);%><td>
+                        <tr>
+
+                    <%}%>
+
+                </table>
+
+
            </div>
         </main>
     </div>
@@ -151,3 +111,20 @@
 </html>
 
 
+               <div class="col">
+                        <div class="card shadow-sm">
+                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+                          <div class="card-body">
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                              </div>
+                              <small class="text-muted">9 mins</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+               </div>

@@ -25,31 +25,69 @@ public class CategoryDAO {
      * @return The created category with ID populated
      * @throws SQLException If database error occurs
      */
-    public Category createCategory(Category category) throws SQLException {
-        String sql = "INSERT INTO Categories (userId, name) VALUES (?, ?)";
+    public void createCategory(Category category) {
+        String sql = "INSERT INTO Categories (user_id, name) VALUES (?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
+        try {
+            conn = DBConnection.getConnection();
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, category.getUserId());
             stmt.setString(2, category.getName());
-
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating category failed, no rows affected.");
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) DBConnection.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    category.setId(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating category failed, no ID obtained.");
-                }
-            }
-
-            return category;
         }
+    }
+
+    /**
+     * Get a category by its associated userID
+     *
+     * @param userID The ID of the user to retrieve
+     * @return The categoryID, or -1 if not found
+     */
+    public int getCategoryID(int userID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int categoryId = -1;
+
+        try {
+            conn = DBConnection.getConnection();
+            String sql = "SELECT id FROM Categories WHERE user_id = ?";
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, userID);
+
+
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                categoryId = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) DBConnection.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return categoryId;
     }
 
     /**

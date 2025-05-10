@@ -9,6 +9,8 @@ public class Transaction {
     private int accountId;
     private int categoryId;
     private BigDecimal amount;
+
+    private String transaction;
     private String type; // "INCOME" or "EXPENSE"
     private String description;
     private Date date;
@@ -20,12 +22,13 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int id, int userId, int accountId, int categoryId, BigDecimal amount,
+    public Transaction(int id, int userId, int accountId, int categoryId, String transaction, BigDecimal amount,
                        String type, String description, Date date) {
         this.id = id;
         this.userId = userId;
         this.accountId = accountId;
         this.categoryId = categoryId;
+        this.transaction = transaction;
         this.amount = amount;
         this.type = type;
         this.description = description;
@@ -112,6 +115,10 @@ public class Transaction {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public String getTransaction() {return this.transaction;}
+
+    public void setTransaction(String transaction){this.transaction = transaction;}
 
     @Override
     public String toString() {

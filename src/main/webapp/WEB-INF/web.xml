@@ -5,6 +5,10 @@
     <servlet-name>Login</servlet-name>
     <servlet-class>controller.LoginController</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Account</servlet-name>
+    <servlet-class>controller.CreateAccountController</servlet-class>
+  </servlet>
 
   <servlet>
     <servlet-name>dashboard</servlet-name>

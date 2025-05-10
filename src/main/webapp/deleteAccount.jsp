@@ -9,17 +9,16 @@
                 <div class="row">
                     <div class="col-12 col-sm-8 col-md-6 mx-auto">
                         <div class="card border-3 shadow">
-                            <h1 class= "display-6 bg-secondary text-white font-consolas text-center">Create Category</h1>
-                            <form class="form-control" action="category" method="post">
-                                <div class="mb-3">
-                                  <label for="" class="form-label">Category Name:</label>
-                                  <input  class="form-control" name="category_name">
-                                </div>
+                            <h1 class= "display-6 bg-secondary text-white font-consolas text-center">Delete Account: Are you sure</h1>
+                            <svg class="mx-auto" fill="seagreen" xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                              <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6m5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1z"/>
+                            </svg>
+                            <form class="form-control" action="deleteAccount" method="post">
                                 <div class="d-inline-flex d-md-block col-sm-3 mx-auto">
-                                      <div class ="mb-2 row">
-                                          <button type="submit" class="btn btn-lg btn-success">Create</button>
-                                      </div>
-                                 </div>
+                                    <div class ="mb-2 row">
+                                        <button type="submit" class="btn btn-lg btn-success">Delete Account</button>
+                                    </div>
+                               </div>
                             </form>
                         </div>
                     </div>

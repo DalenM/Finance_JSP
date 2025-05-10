@@ -11,8 +11,8 @@ public class Account {
     public Account() {
     }
 
-    public Account(int id, int userId, String accountName) {
-        this.id = id;
+    public Account(int accountId, int userId, String accountName) {
+        this.id = accountId;
         this.userId = userId;
         this.accountName = accountName;
     }

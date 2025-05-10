@@ -28,7 +28,7 @@
                                    </c:if>
                                 </h2>
                              </form>
-                             <p class="text-center">Do not have an account?<a href="./createAccount.jsp">Create Account</a></p>
+                             <p class="text-center">Do not have an account?<a href="createAccount.jsp">Create Account</a></p>
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,33 @@ import db.DBConnection;
  */
 public class TransactionDAO {
 
+    public boolean deleteTransaction(int transactionId, int userId) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        boolean success = false;
+
+        try {
+            conn = DBConnection.getConnection();
+            String sql = "DELETE FROM Transactions WHERE id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, transactionId);
+            //stmt.setInt(2, userId);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) DBConnection.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return success;
+    }
+
     /**
      * Creates a new transaction in the database.
      *
@@ -33,16 +60,17 @@ public class TransactionDAO {
 
         try {
             conn = DBConnection.getConnection();
-            String sql = "INSERT INTO Transactions (userId, accountId, categoryId, amount, type, description, date) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Transactions (user_Id, account_Id, category_Id, transaction_name, amount, type, description, transaction_date) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, transaction.getUserId());
             stmt.setInt(2, transaction.getAccountId());
             stmt.setInt(3, transaction.getCategoryId());
-            stmt.setBigDecimal(4, transaction.getAmount());
-            stmt.setString(5, transaction.getType());
-            stmt.setString(6, transaction.getDescription());
-            stmt.setTimestamp(7, new Timestamp(transaction.getDate().getTime()));
+            stmt.setString(4, transaction.getTransaction());
+            stmt.setBigDecimal(5, transaction.getAmount());
+            stmt.setString(6, transaction.getType());
+            stmt.setString(7, transaction.getDescription());
+            stmt.setTimestamp(8, new Timestamp(transaction.getDate().getTime()));
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows > 0) {
@@ -124,12 +152,12 @@ public class TransactionDAO {
 
         try {
             conn = DBConnection.getConnection();
-            String sql = "SELECT t.*, a.accountName, c.name as categoryName " +
+            String sql = "SELECT t.*, a.account_name, c.name as categoryName " +
                     "FROM Transactions t " +
-                    "JOIN Accounts a ON t.accountId = a.id " +
-                    "JOIN Categories c ON t.categoryId = c.id " +
-                    "WHERE t.userId = ? " +
-                    "ORDER BY t.date DESC";
+                    "JOIN Accounts a ON t.account_Id = a.id " +
+                    "JOIN Categories c ON t.category_Id = c.id " +
+                    "WHERE t.user_Id = ? " +
+                    "ORDER BY t.transaction_date DESC";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
 
@@ -288,33 +316,7 @@ public class TransactionDAO {
      * @param userId the user ID (for security check)
      * @return true if deletion succeeds, false otherwise
      */
-    public boolean deleteTransaction(int transactionId, int userId) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        boolean success = false;
 
-        try {
-            conn = DBConnection.getConnection();
-            String sql = "DELETE FROM Transactions WHERE id = ? AND userId = ?";
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, transactionId);
-            stmt.setInt(2, userId);
-
-            int affectedRows = stmt.executeUpdate();
-            success = (affectedRows > 0);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) stmt.close();
-                if (conn != null) DBConnection.closeConnection(conn);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return success;
-    }
 
     /**
      * Gets account balance (sum of all transactions).
@@ -371,18 +373,19 @@ public class TransactionDAO {
     private Transaction mapTransaction(ResultSet rs) throws SQLException {
         Transaction transaction = new Transaction();
         transaction.setId(rs.getInt("id"));
-        transaction.setUserId(rs.getInt("userId"));
-        transaction.setAccountId(rs.getInt("accountId"));
-        transaction.setCategoryId(rs.getInt("categoryId"));
+        transaction.setUserId(rs.getInt("user_Id"));
+        transaction.setAccountId(rs.getInt("account_Id"));
+        transaction.setCategoryId(rs.getInt("category_Id"));
+        transaction.setTransaction(rs.getString("transaction_name"));
         transaction.setAmount(rs.getBigDecimal("amount"));
         transaction.setType(rs.getString("type"));
         transaction.setDescription(rs.getString("description"));
-        transaction.setDate(new Date(rs.getTimestamp("date").getTime()));
+        transaction.setDate(new Date(rs.getTimestamp("transaction_date").getTime()));
 
-        // Additional joined fields
+        /* Additional joined fields
         transaction.setAccountName(rs.getString("accountName"));
         transaction.setCategoryName(rs.getString("categoryName"));
-
+        */
         return transaction;
     }
 }
